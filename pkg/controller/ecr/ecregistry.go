@@ -21,27 +21,23 @@ import (
 	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/pkg/errors"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/types"
+	ctrl "sigs.k8s.io/controller-runtime"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+
 	awsecr "github.com/aws/aws-sdk-go-v2/service/ecr"
 	runtimev1alpha1 "github.com/crossplane/crossplane-runtime/apis/core/v1alpha1"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
+
 	"github.com/crossplane/provider-aws/apis/ecr/v1alpha1"
 	awsv1alpha3 "github.com/crossplane/provider-aws/apis/v1alpha3"
 	awsclients "github.com/crossplane/provider-aws/pkg/clients"
 	"github.com/crossplane/provider-aws/pkg/clients/ecr"
-	"github.com/pkg/errors"
-	corev1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/types"
-	ctrl "sigs.k8s.io/controller-runtime"
-	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/reconcile"
-)
-
-const (
-	controllerName = "ecregistry.aws.crossplane.io"
-	finalizer      = "finalizer." + controllerName
 )
 
 const (
@@ -53,12 +49,6 @@ const (
 	errCreateFailed      = "cannot create repository"
 	errDeleteFailed      = "cannot delete repository"
 	errUpdateFailed      = "cannot update repository"
-)
-
-var (
-	ctx           = context.Background()
-	result        = reconcile.Result{}
-	resultRequeue = reconcile.Result{Requeue: true}
 )
 
 type connector struct {

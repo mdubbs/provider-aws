@@ -21,6 +21,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws/awserr"
 	"github.com/aws/aws-sdk-go-v2/service/ecr"
+
 	awsclients "github.com/crossplane/provider-aws/pkg/clients"
 )
 
