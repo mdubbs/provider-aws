@@ -36,6 +36,7 @@ import (
 	"github.com/crossplane/provider-aws/pkg/controller/ec2/securitygroup"
 	"github.com/crossplane/provider-aws/pkg/controller/ec2/subnet"
 	"github.com/crossplane/provider-aws/pkg/controller/ec2/vpc"
+	"github.com/crossplane/provider-aws/pkg/controller/ecr"
 	"github.com/crossplane/provider-aws/pkg/controller/eks"
 	"github.com/crossplane/provider-aws/pkg/controller/eks/nodegroup"
 	"github.com/crossplane/provider-aws/pkg/controller/elasticloadbalancing/elb"
@@ -112,6 +113,7 @@ func Setup(mgr ctrl.Manager, l logging.Logger) error {
 		snssubscription.SetupSubscription,
 		sqs.SetupQueue,
 		redshift.SetupCluster,
+		ecr.SetupRegistry,
 	} {
 		if err := setup(mgr, l); err != nil {
 			return err
