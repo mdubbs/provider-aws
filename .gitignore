@@ -14,3 +14,4 @@ cover.out
 
 # ignore vscode files (debug config etc...)
 /.vscode
+.DS_Store

@@ -1,0 +1,9 @@
+apiVersion: ecr.aws.crossplane.io/v1alpha1
+kind: Registry
+metadata:
+  name: example-cross-ecr
+spec:
+  scanOnPush: false
+  immutableTags: false
+  providerRef:
+    name: example
